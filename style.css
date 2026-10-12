@@ -1,0 +1,201 @@
+/*
+  Sutherland Spin stylesheet
+*/
+
+/* ==========================================================
+   1. Variables
+   ========================================================== */
+
+:root {
+  /* Contrast ratios are WCAG 2.2 results against the named background */
+  --colour-navy: #0b2545; /* white on navy 15.4:1 */
+  --colour-blue: #1d4e89; /* on white 8.4:1, on surface 7.8:1 */
+  --colour-text: #1c1c1c; /* on surface 15.9:1 */
+  --colour-muted: #4a5568; /* on white 7.5:1, on surface 7.0:1 */
+  --colour-surface: #f4f7fb;
+  --colour-white: #ffffff;
+  --colour-orange: #f28c28; /* on navy 6.3:1; only 2.5:1 on white, so never used there */
+  --colour-focus: #b85600; /* focus rings need 3:1: white 4.8, surface 4.5, navy 3.2 */
+
+  --space-xs: 0.25rem;
+  --space-s: 0.5rem;
+  --space-m: 1rem;
+  --space-l: 1.5rem;
+  --space-xl: 2rem;
+
+  --max-width: 70rem;
+  --tap-target: 2.75rem; /* 44px at the default font size */
+
+  /* System fonts load instantly and match the visitor's device */
+  --font-stack:
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+}
+
+/* ==========================================================
+   2. Base
+   ========================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 100% respects the font size the visitor has set in their browser */
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-stack);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--colour-text);
+  background-color: var(--colour-surface);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--colour-navy);
+  line-height: 1.2;
+}
+
+a {
+  color: var(--colour-blue);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==========================================================
+   3. Accessibility helpers
+   ========================================================== */
+
+/* Off screen until it receives keyboard focus */
+.skip-link {
+  position: absolute;
+  top: var(--space-s);
+  left: var(--space-s);
+  z-index: 10;
+  padding: var(--space-s) var(--space-m);
+  color: var(--colour-navy);
+  background-color: var(--colour-white);
+  font-weight: 700;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Hidden on screen but still read out by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* :focus-visible shows the ring for keyboard users without flashing it on every mouse click */
+:focus-visible {
+  outline: 3px solid var(--colour-focus);
+  outline-offset: 2px;
+}
+
+/* ==========================================================
+   5. Header and nav
+   ========================================================== */
+
+.site-header,
+.site-nav {
+  color: var(--colour-white);
+  background-color: var(--colour-navy);
+}
+
+.site-header {
+  padding: var(--space-m) var(--space-m) 0;
+}
+
+.site-name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.site-name a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  color: var(--colour-white);
+  text-decoration: none;
+}
+
+.site-nav {
+  padding: 0 var(--space-m) var(--space-s);
+}
+
+/* The list stays horizontal on every screen size and wraps if space runs out */
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-l);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  color: var(--colour-white);
+  text-decoration: none;
+  /* Transparent border keeps every link the same height as the active one */
+  border-bottom: 3px solid transparent;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+/* The page the visitor is on, marked in the HTML with aria-current */
+.site-nav a[aria-current="page"] {
+  font-weight: 700;
+  border-bottom-color: var(--colour-orange);
+}
+
+/* ==========================================================
+   10. Footer
+   ========================================================== */
+
+.site-footer {
+  padding: var(--space-l) var(--space-m);
+  color: var(--colour-white);
+  background-color: var(--colour-navy);
+  font-size: 0.875rem;
+}
+
+.site-footer p {
+  margin: 0 0 var(--space-s);
+}
+
+.site-footer p:last-child {
+  margin-bottom: 0;
+}
+
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  color: var(--colour-white);
+}
